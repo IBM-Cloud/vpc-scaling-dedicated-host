@@ -2,7 +2,7 @@ output "resource_group_name" {
   value = local.resource_group_name
 }
 
-output "load_balancer_url" {
+output "load_balancer_hostname" {
   value = var.step2_create_vpc ? module.create_vpc[0].load_balancer_public : null
 }
 
