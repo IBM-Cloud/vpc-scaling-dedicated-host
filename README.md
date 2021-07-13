@@ -1,6 +1,6 @@
 # Terraform scripts for VPC autoscaling, dedicated host solution tutorial 
 
-Companion Terraform scripts to a tutorial that walks you through the steps of setting up isolated workloads in a shared (multi-tenant) environment and a dedicated (single-tenant) environment. Provision an IBM Cloud™ Virtual Private Cloud (VPC) with subnets spanning multiple availability zones (AZs) and virtual server instances (VSIs) that can scale according to your requirements to ensure the high availability of your application. Furthermore, configure load balancers to provide high availability between zones within one region. Configure Virtual Private Endpoints (VPE) for your VPC providing private routes to services on the IBM Cloud.
+Companion Terraform scripts to a [solution tutorial](https://cloud.ibm.com/docs/solution-tutorials?topic=solution-tutorials-vpc-scaling-dedicated-compute) that walks you through the steps of setting up isolated workloads in a shared (multi-tenant) environment and a dedicated (single-tenant) environment. Provision an IBM Cloud™ Virtual Private Cloud (VPC) with subnets spanning multiple availability zones (AZs) and virtual server instances (VSIs) that can scale according to your requirements to ensure the high availability of your application. Furthermore, configure load balancers to provide high availability between zones within one region. Configure Virtual Private Endpoints (VPE) for your VPC providing private routes to services on the IBM Cloud.
 
 Isolate workloads by provisioning a dedicated host, attaching an encrypted data volume to the dedicated VSI, and resizing VSIs after the fact.
 
@@ -8,9 +8,9 @@ You will provision all of these services and VPC resources using IBM Cloud Schem
 
 ![architecture diagram](images/architecture_diagram.svg)
 
-<!--### Deploy using IBM Cloud Schematics UI
+### Deploy using IBM Cloud Schematics UI
 
-Follow the step-by-step instructions in the [solution tutorial](https://test.cloud.ibm.com/docs/solution-tutorials?topic=solution-tutorials-vpc-scaling-dedicated-compute#vpc-scaling-dedicated-compute-dedicated-resize) to deploy the resources using IBM Cloud Schematics UI-->
+Follow the step-by-step instructions in the [solution tutorial](https://cloud.ibm.com/docs/solution-tutorials?topic=solution-tutorials-vpc-scaling-dedicated-compute) to deploy the resources using IBM Cloud Schematics UI
 
 
 ### Terraform modules structure
