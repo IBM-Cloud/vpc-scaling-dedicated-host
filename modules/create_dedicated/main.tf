@@ -130,7 +130,7 @@ resource "ibm_is_volume" "dedicated_volume" {
   profile        = "10iops-tier"
   zone           = "${var.region}-1"
   resource_group = var.resource_group_id
-  #capacity       = var.resize_dedicated_instance_volume ? 250 : 100
+  capacity       = var.resize_dedicated_instance_volume ? 250 : 100
   encryption_key = var.keyprotect_key_id
   depends_on = [ibm_iam_authorization_policy.dedicated_volume_policy]
 }

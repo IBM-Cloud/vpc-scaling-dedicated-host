@@ -43,7 +43,7 @@ variable "ssh_keyname_dedicated" {
 
 variable "image_name" {
   type        = string
-  default     = "ibm-ubuntu-18-04-1-minimal-amd64-2"
+  default     = "ibm-ubuntu-18-04-5-minimal-amd64-1"
   description = "For other Ubuntu image names, run ibmcloud is images command."
 }
 
@@ -95,14 +95,14 @@ variable "step4_create_dedicated" {
   description = "Set this to true to create a dedicated host."
 }
 
-#variable "step5_resize_dedicated_instance_volume" {
-#  type        = bool
-#  default     = false
-#  description = "Resize the data volume attached to an instance in a dedicated host."
-#}
-
 variable "step5_resize_dedicated_instance" {
   type        = bool
   default     = false
   description = "Resize the dedicated instance to a new profile"
+}
+
+variable "step5_resize_dedicated_instance_volume" {
+  type        = bool
+  default     = false
+  description = "Resize the data volume attached to an instance in a dedicated host."
 }

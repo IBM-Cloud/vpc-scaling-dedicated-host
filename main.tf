@@ -78,7 +78,7 @@ module "create_dedicated" {
   postgresql_crn            = module.create_services.0.postgresql_crn
   cos_key                   = module.create_services.0.cos_key
   bucket_name               = module.create_services.0.bucket_name
-  #resize_dedicated_instance_volume = var.step5_resize_dedicated_instance_volume
+  resize_dedicated_instance_volume = var.step5_resize_dedicated_instance_volume
 }
 
 
