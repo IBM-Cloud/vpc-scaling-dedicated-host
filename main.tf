@@ -54,6 +54,7 @@ module "create_vpc" {
   cos_key             = module.create_services.0.cos_key
   bucket_name         = module.create_services.0.bucket_name
   is_scheduled        = var.step3_is_scheduled
+  depends_on          = [module.create_services]
 }
 
 #############################################################################
