@@ -76,7 +76,7 @@ resource "ibm_resource_key" "cos_key" {
     service-endpoints = "private"
     HMAC              = true
   }
-  depends_on           = [ibm_iam_authorization_policy.cos_policy]
+  depends_on = [ibm_iam_authorization_policy.cos_policy]
 }
 
 resource "ibm_iam_authorization_policy" "cos_policy" {
@@ -122,7 +122,7 @@ resource "ibm_resource_key" "postgresql_key" {
   parameters = {
     service-endpoints = "private"
   }
-  depends_on        = [ibm_iam_authorization_policy.postgresql_policy]
+  depends_on = [ibm_iam_authorization_policy.postgresql_policy]
 }
 
 resource "ibm_iam_authorization_policy" "postgresql_policy" {

@@ -19,22 +19,25 @@ output "cos_crn" {
 }
 
 output "cos_key" {
-  value = ibm_resource_key.cos_key
+  value     = ibm_resource_key.cos_key
   sensitive = true
 }
 
 output "postgresql" {
-  value = ibm_database.postgresql
-  sensitive = true
+  value      = ibm_database.postgresql
+  sensitive  = true
+  depends_on = [time_sleep.wait_for_postgresql_initialization]
 }
 
 output "postgresql_crn" {
-  value = ibm_database.postgresql.id
+  value      = ibm_database.postgresql.id
+  depends_on = [time_sleep.wait_for_postgresql_initialization]
 }
 
 output "postgresql_key" {
-  value = ibm_resource_key.postgresql_key
-  sensitive = true
+  value      = ibm_resource_key.postgresql_key
+  sensitive  = true
+  depends_on = [time_sleep.wait_for_postgresql_initialization]
 }
 
 output "bucket_name" {

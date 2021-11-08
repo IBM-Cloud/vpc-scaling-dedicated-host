@@ -54,7 +54,6 @@ module "create_vpc" {
   cos_key             = module.create_services.0.cos_key
   bucket_name         = module.create_services.0.bucket_name
   is_scheduled        = var.step3_is_scheduled
-  depends_on          = [module.create_services]
 }
 
 #############################################################################
@@ -62,23 +61,23 @@ module "create_vpc" {
 #############################################################################
 
 module "create_dedicated" {
-  count                     = var.step4_create_dedicated ? 1 : 0
-  source                    = "./modules/create_dedicated"
-  basename                  = var.basename
-  resource_group_id         = local.resource_group_id
-  region                    = var.region
-  resource_group_name       = local.resource_group_name
-  image_name                = var.image_name
-  ssh_keyname_dedicated     = var.ssh_keyname_dedicated
-  tags                      = concat(var.tags, ["dedicated"])
-  keyprotect_guid           = module.create_services.0.keyprotect_guid
-  keyprotect_key_type       = module.create_services.0.keyprotect_key_type
-  keyprotect_key_id         = module.create_services.0.keyprotect_key_id
-  resize_dedicated_instance = var.step5_resize_dedicated_instance
-  postgresql_key            = module.create_services.0.postgresql_key
-  postgresql_crn            = module.create_services.0.postgresql_crn
-  cos_key                   = module.create_services.0.cos_key
-  bucket_name               = module.create_services.0.bucket_name
+  count                            = var.step4_create_dedicated ? 1 : 0
+  source                           = "./modules/create_dedicated"
+  basename                         = var.basename
+  resource_group_id                = local.resource_group_id
+  region                           = var.region
+  resource_group_name              = local.resource_group_name
+  image_name                       = var.image_name
+  ssh_keyname_dedicated            = var.ssh_keyname_dedicated
+  tags                             = concat(var.tags, ["dedicated"])
+  keyprotect_guid                  = module.create_services.0.keyprotect_guid
+  keyprotect_key_type              = module.create_services.0.keyprotect_key_type
+  keyprotect_key_id                = module.create_services.0.keyprotect_key_id
+  resize_dedicated_instance        = var.step5_resize_dedicated_instance
+  postgresql_key                   = module.create_services.0.postgresql_key
+  postgresql_crn                   = module.create_services.0.postgresql_crn
+  cos_key                          = module.create_services.0.cos_key
+  bucket_name                      = module.create_services.0.bucket_name
   resize_dedicated_instance_volume = var.step5_resize_dedicated_instance_volume
 }
 
