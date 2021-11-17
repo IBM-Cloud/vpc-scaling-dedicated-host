@@ -129,7 +129,7 @@ resource "ibm_iam_authorization_policy" "postgresql_policy" {
   source_service_name         = "databases-for-postgresql"
   target_service_name         = ibm_kms_key.key.type
   target_resource_instance_id = ibm_resource_instance.keyprotect.guid
-  roles                       = ["Reader", "AuthorizationDelegator"]
+  roles                       = ["Reader", "Authorization Delegator"]
 }
 
 resource "time_sleep" "wait_for_postgresql_initialization" {
