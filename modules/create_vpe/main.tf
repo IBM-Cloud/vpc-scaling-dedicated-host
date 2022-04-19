@@ -3,6 +3,7 @@ resource "ibm_is_virtual_endpoint_gateway" "vpe" {
 
   name           = "${var.basename}-${each.key}-vpe"
   resource_group = var.resource_group_id
+  security_groups = var.security_groups
   vpc            = var.vpc_id
 
   target {

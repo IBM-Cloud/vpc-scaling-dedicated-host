@@ -141,6 +141,12 @@ resource "ibm_is_security_group_rule" "lb_private_sg_rule_tcp_inbound" {
   }
 }
 
+resource "ibm_is_security_group_rule" "backend_ingress_backend_autoscale_sg" {
+  group     = ibm_is_security_group.backend_autoscale_sg.id
+  direction = "inbound"
+  remote    = ibm_is_security_group.backend_autoscale_sg.id
+}
+
 resource "ibm_is_security_group_rule" "lb_private_sg_rule_tcp_outbound" {
   group     = var.lb_private_sg_id
   direction = "outbound"

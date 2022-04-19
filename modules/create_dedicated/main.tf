@@ -46,6 +46,12 @@ resource "ibm_is_security_group" "dedicated_security_group" {
   vpc  = ibm_is_vpc.dedicated_vpc.id
 }
 
+resource "ibm_is_security_group_rule" "dedicated_security_group_rule_ingress_dedicated" {
+  group      = ibm_is_security_group.dedicated_security_group.id
+  direction  = "inbound"
+  remote     = ibm_is_security_group.dedicated_security_group.id
+}
+
 resource "ibm_is_security_group_rule" "dedicated_security_group_rule_tcp_80" {
   group      = ibm_is_security_group.dedicated_security_group.id
   direction  = "inbound"

@@ -2,6 +2,7 @@ module "vpe_cloud_services" {
   source            = "../create_vpe"
   vpc_id            = ibm_is_vpc.vpc.id
   resource_group_id = var.resource_group_id
+  security_groups   = [module.security_groups.backend_sg_id]
   subnets           = module.subnets_backend.subnets
   endpoints         = local.endpoints
   basename          = var.basename

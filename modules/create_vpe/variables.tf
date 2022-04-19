@@ -10,6 +10,10 @@ variable "resource_group_id" {
   type = string
 }
 
+variable "security_groups" {
+  type    = list(string)
+}
+
 variable "vpc_id" {
   type = string
 }
