@@ -1,8 +1,3 @@
-variable "ibmcloud_api_key" {
-  type        = string
-  sensitive   = true
-  description = "IBM Cloud API key to provision the services and resources."
-}
 variable "region" {
   type        = string
   default     = "us-south"

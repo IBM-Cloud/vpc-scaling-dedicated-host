@@ -17,6 +17,17 @@ resource "ibm_is_instance_template" "instance_template" {
   lifecycle {
     create_before_destroy = true
   }
+  /*
+  Optionally add volume attachments if needed for your application
+  volume_attachments {
+    delete_volume_on_instance_delete = true
+    name                             = "${var.name}-template-volume-attachment"
+    volume_prototype {
+      profile  = "general-purpose"
+      capacity = 200
+    }
+  }
+  */
 }
 
 resource "ibm_is_instance_group" "instance_group" {
