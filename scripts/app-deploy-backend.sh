@@ -35,7 +35,7 @@ function installApp {
         [ $? -ne 0 ] && log_error "apt-get update command execution error." && return 1
 
         log_info "Running set source for latest nodejs."
-        curl -sL https://deb.nodesource.com/setup_12.x | bash -
+        curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
         [ $? -ne 0 ] && log_error "set node source execution error." && return 1
 
         log_info "Running apt-get install nodejs."
