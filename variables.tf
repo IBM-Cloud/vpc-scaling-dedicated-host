@@ -38,7 +38,7 @@ variable "ssh_keyname_dedicated" {
 
 variable "image_name" {
   type        = string
-  default     = "ibm-ubuntu-18-04-5-minimal-amd64-1"
+  default     = "ibm-ubuntu-22-04-1-minimal-amd64-3"
   description = "For other Ubuntu image names, run ibmcloud is images command."
 }
 
