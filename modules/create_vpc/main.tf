@@ -89,6 +89,13 @@ module "security_groups" {
   ]
 }
 
+resource "ibm_iam_authorization_policy" "boot_volume_policy" {
+  source_service_name         = "server-protect"
+  target_service_name         = var.keyprotect_key_type
+  target_resource_instance_id = var.keyprotect_guid
+  roles                       = ["Reader"]
+}
+
 module "autoscale_frontend" {
   source            = "./autoscale"
   vpc_id            = ibm_is_vpc.vpc.id
@@ -104,7 +111,8 @@ module "autoscale_frontend" {
   lb_pool_id        = module.load_balancer_public.lb_pool_id
   is_dynamic        = var.is_dynamic
   instance_count    = var.instance_count
-  is_scheduled      = var.is_scheduled 
+  is_scheduled      = var.is_scheduled
+  keyprotect_crn    = var.keyprotect_crn
 
   user_data = templatefile("${path.module}/../../scripts/cloud-init-frontend.yaml", {
     app_deploy = base64encode(templatefile("${path.module}/../../scripts/app-deploy-frontend.sh", {
@@ -119,7 +127,8 @@ module "autoscale_frontend" {
   depends_on = [
     module.load_balancer_private,
     module.load_balancer_public,
-    module.security_groups
+    module.security_groups,
+    ibm_iam_authorization_policy.boot_volume_policy
   ]
 }
 
@@ -138,10 +147,11 @@ module "autoscale_backend" {
   lb_pool_id        = module.load_balancer_private.lb_pool_id
   is_dynamic        = var.is_dynamic
   instance_count    = var.instance_count
-  is_scheduled      = var.is_scheduled 
+  is_scheduled      = var.is_scheduled
+  keyprotect_crn    = var.keyprotect_crn
 
   user_data = templatefile("${path.module}/../../scripts/cloud-init-backend.yaml", {
-    pg_credentials  = base64encode("[${jsonencode(var.postgresql_key)}]")
+    pg_credentials = base64encode("[${jsonencode(var.postgresql_key)}]")
 
     cos_credentials = base64encode("[${jsonencode(var.cos_key)}]")
 
@@ -157,6 +167,7 @@ module "autoscale_backend" {
 
   depends_on = [
     module.load_balancer_private,
-    module.security_groups
+    module.security_groups,
+    ibm_iam_authorization_policy.boot_volume_policy
   ]
 }

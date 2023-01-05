@@ -4,6 +4,10 @@ resource "ibm_is_instance_template" "instance_template" {
   profile        = "cx2-2x4"
   resource_group = var.resource_group_id
 
+  boot_volume {
+    encryption = var.keyprotect_crn
+  }
+
   primary_network_interface {
     subnet          = var.subnet_id
     security_groups = var.security_groups

@@ -49,6 +49,10 @@ module "create_vpc" {
   ssh_keyname         = var.ssh_keyname
   is_dynamic          = var.step3_is_dynamic
   instance_count      = var.step3_instance_count
+  keyprotect_guid     = module.create_services.0.keyprotect_guid
+  keyprotect_key_type = module.create_services.0.keyprotect_key_type
+  keyprotect_key_id   = module.create_services.0.keyprotect_key_id
+  keyprotect_crn      = module.create_services.0.keyprotect_crn
   postgresql_key      = module.create_services.0.postgresql_key
   postgresql_crn      = module.create_services.0.postgresql_crn
   cos_key             = module.create_services.0.cos_key
@@ -73,6 +77,7 @@ module "create_dedicated" {
   keyprotect_guid                  = module.create_services.0.keyprotect_guid
   keyprotect_key_type              = module.create_services.0.keyprotect_key_type
   keyprotect_key_id                = module.create_services.0.keyprotect_key_id
+  keyprotect_crn                   = module.create_services.0.keyprotect_crn
   resize_dedicated_instance        = var.step5_resize_dedicated_instance
   postgresql_key                   = module.create_services.0.postgresql_key
   postgresql_crn                   = module.create_services.0.postgresql_crn

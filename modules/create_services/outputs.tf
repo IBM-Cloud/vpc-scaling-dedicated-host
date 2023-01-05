@@ -11,11 +11,11 @@ output "keyprotect_key_id" {
 }
 
 output "keyprotect_crn" {
-  value = ibm_resource_instance.keyprotect.target_crn
+  value = ibm_kms_key.key.crn
 }
 
 output "cos_crn" {
-  value = ibm_resource_instance.cos.target_crn
+  value = ibm_resource_instance.cos.resource_crn
 }
 
 output "cos_key" {

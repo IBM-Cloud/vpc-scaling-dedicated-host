@@ -39,12 +39,16 @@ variable "keyprotect_key_id" {
   type = string
 }
 
+variable "keyprotect_crn" {
+  type = string
+}
+
 variable "resize_dedicated_instance_volume" {
-  type        = bool
+  type = bool
 }
 
 variable "resize_dedicated_instance" {
-  type        = bool
+  type = bool
 }
 
 variable "cos_key" {

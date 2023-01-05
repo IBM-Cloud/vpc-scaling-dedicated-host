@@ -4,12 +4,12 @@ resource "ibm_is_vpc" "dedicated_vpc" {
 }
 
 resource "ibm_is_subnet" "dedicated_subnet" {
-  count           = 1
-  name            = "${var.basename}-dedicated-subnet"
-  vpc             = ibm_is_vpc.dedicated_vpc.id
-  zone            = "${var.region}-1"
+  count                    = 1
+  name                     = "${var.basename}-dedicated-subnet"
+  vpc                      = ibm_is_vpc.dedicated_vpc.id
+  zone                     = "${var.region}-1"
   total_ipv4_address_count = 256
-  resource_group = var.resource_group_id
+  resource_group           = var.resource_group_id
 }
 
 data "ibm_is_image" "image" {
@@ -47,15 +47,15 @@ resource "ibm_is_security_group" "dedicated_security_group" {
 }
 
 resource "ibm_is_security_group_rule" "dedicated_security_group_rule_ingress_dedicated" {
-  group      = ibm_is_security_group.dedicated_security_group.id
-  direction  = "inbound"
-  remote     = ibm_is_security_group.dedicated_security_group.id
+  group     = ibm_is_security_group.dedicated_security_group.id
+  direction = "inbound"
+  remote    = ibm_is_security_group.dedicated_security_group.id
 }
 
 resource "ibm_is_security_group_rule" "dedicated_security_group_rule_tcp_80" {
-  group      = ibm_is_security_group.dedicated_security_group.id
-  direction  = "inbound"
-  remote     = "0.0.0.0/0"
+  group     = ibm_is_security_group.dedicated_security_group.id
+  direction = "inbound"
+  remote    = "0.0.0.0/0"
   tcp {
     port_min = 80
     port_max = 80
@@ -63,9 +63,9 @@ resource "ibm_is_security_group_rule" "dedicated_security_group_rule_tcp_80" {
 }
 
 resource "ibm_is_security_group_rule" "dedicated_security_group_rule_tcp_443" {
-  group      = ibm_is_security_group.dedicated_security_group.id
-  direction  = "inbound"
-  remote     = "0.0.0.0/0"
+  group     = ibm_is_security_group.dedicated_security_group.id
+  direction = "inbound"
+  remote    = "0.0.0.0/0"
   tcp {
     port_min = 443
     port_max = 443
@@ -124,13 +124,6 @@ resource "ibm_is_security_group_rule" "dedicated_security_group_rule_tcp_pg_outb
   }
 }
 
-resource "ibm_iam_authorization_policy" "dedicated_volume_policy" {
-  source_service_name         = "server-protect"
-  target_service_name         = var.keyprotect_key_type
-  target_resource_instance_id = var.keyprotect_guid
-  roles                       = ["Reader"]
-}
-
 resource "ibm_is_volume" "dedicated_volume" {
   name           = "${var.basename}-volume"
   profile        = "10iops-tier"
@@ -138,7 +131,6 @@ resource "ibm_is_volume" "dedicated_volume" {
   resource_group = var.resource_group_id
   capacity       = var.resize_dedicated_instance_volume ? 250 : 100
   encryption_key = var.keyprotect_key_id
-  depends_on = [ibm_iam_authorization_policy.dedicated_volume_policy]
 }
 
 
@@ -148,10 +140,15 @@ resource "ibm_is_instance" "dedicated_instance" {
   image   = data.ibm_is_image.image.id
   profile = var.resize_dedicated_instance ? "cx2-8x16" : "cx2-2x4"
 
+  boot_volume {
+    encryption = var.keyprotect_crn
+  }
+
   primary_network_interface {
     subnet          = ibm_is_subnet.dedicated_subnet.0.id
     security_groups = [ibm_is_security_group.dedicated_security_group.id]
   }
+
   dedicated_host     = ibm_is_dedicated_host.dedicated_host.id
   vpc                = ibm_is_vpc.dedicated_vpc.id
   zone               = "${var.region}-1"
@@ -161,7 +158,7 @@ resource "ibm_is_instance" "dedicated_instance" {
   auto_delete_volume = true
 
   user_data = templatefile("${path.module}/../../scripts/cloud-init-backend.yaml", {
-    pg_credentials  = base64encode("[${jsonencode(var.postgresql_key)}]")
+    pg_credentials = base64encode("[${jsonencode(var.postgresql_key)}]")
 
     cos_credentials = base64encode("[${jsonencode(var.cos_key)}]")
 
@@ -184,7 +181,7 @@ resource "ibm_is_instance" "dedicated_instance" {
 }
 
 resource "ibm_is_floating_ip" "instance_floating_ip" {
-  name   = "${var.basename}-dedicated-instance-ip"
-  target = ibm_is_instance.dedicated_instance.primary_network_interface[0].id
+  name           = "${var.basename}-dedicated-instance-ip"
+  target         = ibm_is_instance.dedicated_instance.primary_network_interface[0].id
   resource_group = var.resource_group_id
 }

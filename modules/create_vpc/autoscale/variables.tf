@@ -61,3 +61,7 @@ variable "is_scheduled" {
 }
 
 variable "user_data" {}
+
+variable "keyprotect_crn" {
+  type = string
+}

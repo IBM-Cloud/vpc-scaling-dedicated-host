@@ -47,6 +47,22 @@ variable "cos_key" {
   type = any
 }
 
+variable "keyprotect_guid" {
+  type = string
+}
+
+variable "keyprotect_key_type" {
+  type = string
+}
+
+variable "keyprotect_key_id" {
+  type = string
+}
+
+variable "keyprotect_crn" {
+  type = string
+}
+
 variable "postgresql_crn" {
   type = string
 }
