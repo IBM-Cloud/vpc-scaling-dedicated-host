@@ -11,6 +11,7 @@ resource "ibm_is_lb" "lb" {
   type            = var.lb_type
   tags            = var.tags
   security_groups = [ibm_is_security_group.lb_sg.id]
+  logging         = true
 }
 
 resource "ibm_is_lb_pool" "lb-pool" {
