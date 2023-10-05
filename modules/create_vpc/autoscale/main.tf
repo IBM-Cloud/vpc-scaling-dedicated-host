@@ -5,7 +5,8 @@ resource "ibm_is_instance_template" "instance_template" {
   resource_group = var.resource_group_id
 
   boot_volume {
-    encryption = var.keyprotect_crn
+    encryption                       = var.keyprotect_crn
+    delete_volume_on_instance_delete = true
   }
 
   primary_network_interface {
