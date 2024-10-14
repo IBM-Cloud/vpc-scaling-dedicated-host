@@ -15,6 +15,10 @@ data "ibm_resource_group" "group" {
 locals {
   resource_group_id   = var.resource_group_name != "" ? data.ibm_resource_group.group.0.id : ibm_resource_group.group.0.id
   resource_group_name = var.resource_group_name != "" ? data.ibm_resource_group.group.0.name : ibm_resource_group.group.0.name
+
+  # create logging and monitoring are now done by the user by hand - changes for IBM Cloud Logs, the log and metric routing.
+  step1_create_logging    = false
+  step1_create_monitoring = false
 }
 
 ###########################################
@@ -28,8 +32,8 @@ module "create_services" {
   region            = var.region
   resource_group_id = local.resource_group_id
   tags              = var.tags
-  create_logging    = var.step1_create_logging
-  create_monitoring = var.step1_create_monitoring
+  create_logging    = local.step1_create_logging
+  create_monitoring = local.step1_create_monitoring
 
 }
 

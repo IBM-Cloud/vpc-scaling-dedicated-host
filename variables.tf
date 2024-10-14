@@ -48,18 +48,6 @@ variable "step1_create_services" {
   description = "Set this to true to create the cloud services."
 }
 
-variable "step1_create_logging" {
-  type        = bool
-  default     = false
-  description = "Create a logging instance in the region and resource group provided above"
-}
-
-variable "step1_create_monitoring" {
-  type        = bool
-  default     = false
-  description = "Create a monitoring instance in the region and resource group provided above"
-}
-
 variable "step2_create_vpc" {
   type        = bool
   default     = false
